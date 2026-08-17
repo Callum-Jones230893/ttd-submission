@@ -1,4 +1,4 @@
-import { createEvent, fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import InitialDisplay from "@/components/InitialDisplay"
 
 test("The component is rendering with a single h2 element , a p element for instructions and a button on page load", () => {

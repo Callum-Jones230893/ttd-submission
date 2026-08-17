@@ -1,23 +1,17 @@
-import { createEvent, fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import Card from "@/components/Card"
-
-const mockCardArray = [
-  { id: "001", name: "Pikachu", image: "pikachu.png", status: "unflipped" },
-  { id: "002", name: "Pikachu", image: "pikachu.png", status: "unflipped" },
-  { id: "003", name: "Bulbasaur", image: "bulbasaur.png", status: "unflipped" },
-  { id: "004", name: "Bulbasaur", image: "bulbasaur.png", status: "unflipped" },
-]
+import { memoryCards } from "@/data/data"
 
 test("All of the cards are rendering with the back of the card showing when the board is displayed", () => {
   const setSelectedCards = jest.fn()
   render(
     <Card
-      cardArray={mockCardArray}
+      cardArray={memoryCards}
       setSelectedCards={setSelectedCards}
       selectedCards={[]}
       isLocked={false}
       setIsLocked={jest.fn()}
-    />
+    />,
   )
 
   const cards = screen.getAllByTestId("card-image")
@@ -26,19 +20,19 @@ test("All of the cards are rendering with the back of the card showing when the 
     expect(card).toHaveAttribute("src", "cardBack.png")
   })
 
-  expect(cards).toHaveLength(mockCardArray.length)
+  expect(cards).toHaveLength(memoryCards.length)
 })
 
 test("The cards flip when clicked", () => {
   const setSelectedCards = jest.fn()
   render(
     <Card
-      cardArray={mockCardArray}
+      cardArray={memoryCards}
       setSelectedCards={setSelectedCards}
       selectedCards={[]}
       isLocked={false}
       setIsLocked={jest.fn()}
-    />
+    />,
   )
 
   const cards = screen.getAllByTestId("card-image")
@@ -48,7 +42,7 @@ test("The cards flip when clicked", () => {
 
     expect(setSelectedCards).toHaveBeenCalledTimes(1)
     expect(setSelectedCards).toHaveBeenCalledWith([
-      { ...mockCardArray[index], status: "flipped" }
+      { ...memoryCards[index], status: "flipped" },
     ])
 
     setSelectedCards.mockClear()
@@ -56,9 +50,9 @@ test("The cards flip when clicked", () => {
 })
 
 test("The same card cannot be clicked multiple times", () => {
-  const mockFlippedArray = mockCardArray.map((card) => ({
+  const mockFlippedArray = memoryCards.map((card) => ({
     ...card,
-    status: "flipped"
+    status: "flipped",
   }))
 
   const setSelectedCards = jest.fn()
@@ -82,7 +76,7 @@ test("The same card cannot be clicked multiple times", () => {
 })
 
 test("That a paired card cannot be clicked again", () => {
-  const mockFlippedArray = mockCardArray.map((card) => ({
+  const mockFlippedArray = memoryCards.map((card) => ({
     ...card,
     status: "paired",
   }))
@@ -95,7 +89,7 @@ test("That a paired card cannot be clicked again", () => {
       selectedCards={[]}
       isLocked={false}
       setIsLocked={jest.fn()}
-    />
+    />,
   )
 
   const cards = screen.getAllByTestId("card-image")
