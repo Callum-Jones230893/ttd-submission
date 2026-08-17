@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import Header from "@/components/Header"
 
-test("", () => {
+test("The header is rendering", () => {
   render(<Header />)
 
   const headerTitle = screen.getByRole("heading", {level: 1, "name": /Test your memory/i})

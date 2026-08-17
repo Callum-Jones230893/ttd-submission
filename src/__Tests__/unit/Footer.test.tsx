@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import Footer from "@/components/Footer"
 
-test("", () => {
+test("The footer is rendering", () => {
   render(<Footer />)
 
   const footerElement = screen.getByRole("contentinfo")
